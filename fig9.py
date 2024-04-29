@@ -1,7 +1,4 @@
-# Check if TensorFlow is installed
-if importlib.util.find_spec("tensorflow") is None:
-    # TensorFlow not found, install it
-    !pip install tensorflow
+# remember to install tensorflow first
 
 import tensorflow as tf
 from tensorflow.keras.layers import Dense, Flatten
