@@ -29,18 +29,32 @@ def sgd_minibatch(X, y, batch_size, n_epochs=10, learning_rate=0.01):
             weights -= learning_rate * gradient
     return weights
 
-# Measure the time taken for each batch size and plot it
+# Measure the time taken and compute updates frequency for each batch size
 times_taken = []
+updates_per_epoch = []
 for batch_size in batch_sizes:
     start_time = time()
     sgd_minibatch(X, y, batch_size)
     times_taken.append(time() - start_time)
+    updates_per_epoch.append(np.ceil(n_samples / batch_size))
 
+# Plot Time Taken vs. Batch Size
 plt.figure(figsize=(10, 6))
-plt.plot(batch_sizes, times_taken, 'o-')
+plt.plot(batch_sizes, times_taken, 'o-b', label='Time Taken (s)')
 plt.xscale('log')
-plt.xlabel('Mini-batch Size')
-plt.ylabel('Time taken (seconds)')
-plt.title('Mini-batch SGD: Computation Time vs. Batch Size')
+plt.xlabel('Batch Size')
+plt.ylabel('Time Taken (seconds)')
+plt.title('Time Taken by Mini-batch SGD vs. Batch Size')
+plt.grid(True)
+plt.show()
+
+# Plot Frequency of Updates vs. Batch Size
+plt.figure(figsize=(10, 6))
+plt.plot(batch_sizes, updates_per_epoch, 'o-r', label='Updates per Epoch')
+plt.xscale('log')
+plt.yscale('log')
+plt.xlabel('Batch Size')
+plt.ylabel('Frequency of Updates per Epoch')
+plt.title('Frequency of Updates vs. Batch Size')
 plt.grid(True)
 plt.show()
